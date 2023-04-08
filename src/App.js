@@ -1,23 +1,97 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import mainimg from "./map/main.png";
+// import img501 from "./map/map_501.jpg";
+import Modal from "react-modal";
+import "./modal.css";
+
+Modal.setAppElement("#root");
 
 function App() {
+  const [imageSrc, setImageSrc] = useState(mainimg);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
+  const buttons = Array.from({ length: 4 }, (_, i) => ({
+    label: `${501 + i}호`,
+    roomNumber: `${501 + i}`,
+  })).concat(
+    { label: "521-1호", roomNumber: "521-1" },
+    { label: "521-2호", roomNumber: "521-2" },
+    Array.from({ length: 15 }, (_, i) => ({
+      label: `${522 + i}호`,
+      roomNumber: `${522 + i}`,
+    })),
+    Array.from({ length: 3 }, (_, i) => ({
+      label: `${539 + i}호`,
+      roomNumber: `${539 + i}`,
+    })),
+    Array.from({ length: 9 }, (_, i) => ({
+      label: `${551 + i}호`,
+      roomNumber: `${551 + i}`,
+    }))
+  );
+
+  const handleButtonClick = (roomNumber) => {
+    const images = require.context("./map", false, /\.jpg$/);
+    const imgFiles = images.keys().map((path) => images(path));
+    const roomNumbers = Array.from({ length: 59 }, (_, i) =>
+      (i + 501).toString()
+    ).filter((roomNumber) => {
+      return (
+        (roomNumber >= "501" && roomNumber <= "521") ||
+        roomNumber === "521-1" ||
+        roomNumber === "521-2" ||
+        (roomNumber >= "522" && roomNumber <= "536") ||
+        (roomNumber >= "539" && roomNumber <= "541") ||
+        (roomNumber >= "551" && roomNumber <= "559")
+      );
+    });
+    const index = roomNumbers.indexOf(roomNumber);
+    setModalContent(
+      `선택하신 목적지는 ${roomNumber}호 입니다. 해당 목적지로 안내를 하겠습니다.`
+    );
+    setModalIsOpen(true);
+
+    if (index !== -1) {
+      setImageSrc(imgFiles[index]);
+    } else {
+      setImageSrc(mainimg);
+    }
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div class="homecontainerStyle">
+        <div class="mainimgStyle">
+          <h1>안내를 원하는 장소를 선택하세요</h1>
+          <div class="contentStyle">
+            <img src={imageSrc} alt="snslab" />
+            <div class="buttonsStyle">
+              {buttons.map((button) => (
+                <button
+                  key={button.roomNumber}
+                  class="buttonStyle"
+                  onClick={() => handleButtonClick(button.roomNumber)}
+                >
+                  {button.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
+        <h2>안내</h2>
+        <p>{modalContent}</p>
+        <button onClick={closeModal}>안내시작</button>
+        <button onClick={closeModal}>닫기</button>
+      </Modal>
     </div>
   );
 }
