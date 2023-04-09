@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
 import mainimg from "./map/main.png";
-// import img501 from "./map/map_501.jpg";
 import Modal from "react-modal";
 import "./modal.css";
 
@@ -11,26 +10,32 @@ function App() {
   const [imageSrc, setImageSrc] = useState(mainimg);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [selectedRoomNumber, setSelectedRoomNumber] = useState("");
 
-  const buttons = Array.from({ length: 4 }, (_, i) => ({
-    label: `${501 + i}호`,
-    roomNumber: `${501 + i}`,
-  })).concat(
+  const buttons = [
+    ...Array.from({ length: 21 }, (_, i) => ({
+      label: `${501 + i}호`,
+      roomNumber: `${501 + i}`,
+    })),
     { label: "521-1호", roomNumber: "521-1" },
     { label: "521-2호", roomNumber: "521-2" },
-    Array.from({ length: 15 }, (_, i) => ({
+    ...Array.from({ length: 5 }, (_, i) => ({
       label: `${522 + i}호`,
       roomNumber: `${522 + i}`,
     })),
-    Array.from({ length: 3 }, (_, i) => ({
+    ...Array.from({ length: 8 }, (_, i) => ({
+      label: `${529 + i}호`,
+      roomNumber: `${529 + i}`,
+    })),
+    ...Array.from({ length: 3 }, (_, i) => ({
       label: `${539 + i}호`,
       roomNumber: `${539 + i}`,
     })),
-    Array.from({ length: 9 }, (_, i) => ({
+    ...Array.from({ length: 9 }, (_, i) => ({
       label: `${551 + i}호`,
       roomNumber: `${551 + i}`,
-    }))
-  );
+    })),
+  ];
 
   const handleButtonClick = (roomNumber) => {
     const images = require.context("./map", false, /\.jpg$/);
@@ -48,6 +53,7 @@ function App() {
       );
     });
     const index = roomNumbers.indexOf(roomNumber);
+    setSelectedRoomNumber(roomNumber);
     setModalContent(
       `선택하신 목적지는 ${roomNumber}호 입니다. 해당 목적지로 안내를 하겠습니다.`
     );
@@ -62,6 +68,13 @@ function App() {
 
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const handleStartGuide = () => {
+    const audioFile = require(`./MAP_TTS/room${selectedRoomNumber}.mp3`);
+    const audio = new Audio(audioFile);
+    audio.play();
+    closeModal();
   };
 
   return (
@@ -89,7 +102,7 @@ function App() {
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
         <h2>안내</h2>
         <p>{modalContent}</p>
-        <button onClick={closeModal}>안내시작</button>
+        <button onClick={handleStartGuide}>안내시작</button>
         <button onClick={closeModal}>닫기</button>
       </Modal>
     </div>
