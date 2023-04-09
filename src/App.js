@@ -56,7 +56,7 @@ function App() {
     const index = roomNumbers.indexOf(roomNumber);
     setSelectedRoomNumber(roomNumber);
     setModalContent(
-      `선택하신 목적지는 ${roomNumber}호 입니다. 해당 목적지로 안내를 하겠습니다.`
+      `선택하신 목적지는 ${roomNumber}호 입니다. 해당 목적지로 안내를 원하시면 안내시작 버튼을 눌러주세요.`
     );
     setModalIsOpen(true);
 
@@ -89,7 +89,7 @@ function App() {
               {buttons.map((button) => (
                 <button
                   key={button.roomNumber}
-                  class="buttonStyle"
+                  class="btn"
                   onClick={() => handleButtonClick(button.roomNumber)}
                 >
                   {button.label}
@@ -101,10 +101,17 @@ function App() {
       </div>
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
-        <h2>안내</h2>
-        <p>{modalContent}</p>
-        <button onClick={handleStartGuide}>안내시작</button>
-        <button onClick={closeModal}>닫기</button>
+        <section>
+          <header>
+            안 내
+            <button onClick={closeModal}>x</button>
+          </header>
+          <main>{modalContent}</main>
+          <footer>
+            <button onClick={handleStartGuide}>안내시작</button>
+            <button onClick={closeModal}>닫기</button>
+          </footer>
+        </section>
       </Modal>
     </div>
   );
