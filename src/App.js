@@ -47,7 +47,8 @@ function App() {
         (roomNumber >= "501" && roomNumber <= "521") ||
         roomNumber === "521-1" ||
         roomNumber === "521-2" ||
-        (roomNumber >= "522" && roomNumber <= "536") ||
+        (roomNumber >= "522" && roomNumber <= "526") ||
+        (roomNumber >= "529" && roomNumber <= "536") ||
         (roomNumber >= "539" && roomNumber <= "541") ||
         (roomNumber >= "551" && roomNumber <= "559")
       );
