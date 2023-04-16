@@ -49,11 +49,15 @@ function App() {
 
   const handleButtonClick = (roomNumber) => {
     const images = require(`./map/map${roomNumber}.png`);
+    // const navButton = document.getElementById('nav');
+    // navButton.disabled = false;
     setImageSrc(images)
-
     setSelectedRoomNumber(roomNumber);
+  };
+
+  const navButtonClick = () => {
     setModalContent(
-      `선택하신 목적지는 ${roomNumber}호 ${classes[roomNumber][0]}입니다.`
+      `선택하신 목적지는 ${selectedRoomNumber}호 ${classes[selectedRoomNumber][0]}입니다.`
     );
     setModalIsOpen(true);
   };
@@ -73,7 +77,10 @@ function App() {
     <div className="App">
       <div class="homecontainerStyle">
         <div class="mainimgStyle">
-          <h1>안내를 원하는 장소를 선택하세요</h1>
+          <div class="contentStyle">
+            <h1 class="headerStyle">안내를 원하는 장소를 선택하세요</h1>
+            <button id="nav" class="nav_btn" onClick={() => navButtonClick()}>안 내 시 작</button>
+          </div>
           <div class="contentStyle">
             <img src={imageSrc} alt="snslab" className="img"/>
             <div class="buttonsStyle">
@@ -100,11 +107,11 @@ function App() {
           </header>
           <main>
             {modalContent}
-            <br/> 해당 목적지로 안내를 원하시면 안내시작 버튼을 눌러주세요.
+            <br/> 해당 목적지로 안내를 시작할까요?
             </main>
           <footer>
-            <button onClick={handleStartGuide}>안내시작</button>
-            <button onClick={closeModal}>닫기</button>
+            <button onClick={handleStartGuide}>예</button>
+            <button onClick={closeModal}>아니요</button>
           </footer>
         </section>
       </Modal>
