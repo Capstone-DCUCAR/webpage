@@ -57,7 +57,7 @@ function App() {
 
   const navButtonClick = () => {
     setModalContent(
-      `선택하신 목적지는 ${selectedRoomNumber}호 ${classes[selectedRoomNumber][0]}입니다.`
+      `${selectedRoomNumber}호 ${classes[selectedRoomNumber][0]}`
     );
     setModalIsOpen(true);
   };
@@ -106,8 +106,8 @@ function App() {
             <button onClick={closeModal}>x</button>
           </header>
           <main>
-            {modalContent}
-            <br/> 해당 목적지로 안내를 시작할까요?
+            <p>선택하신 목적지는 <b><u>{modalContent}</u></b>입니다.</p>
+            <p>해당 목적지로 안내를 시작할까요?</p>
             </main>
           <footer>
             <button onClick={handleStartGuide}>예</button>
