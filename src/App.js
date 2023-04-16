@@ -48,33 +48,14 @@ function App() {
   ];
 
   const handleButtonClick = (roomNumber) => {
-    const images = require.context("./map", false, /\.jpg$/);
-    const imgFiles = images.keys().map((path) => images(path));
-    const roomNumbers = Array.from({ length: 59 }, (_, i) =>
-      (i + 501).toString()
-    ).filter((roomNumber) => {
-      return (
-        (roomNumber >= "501" && roomNumber <= "521") ||
-        roomNumber === "521-1" ||
-        roomNumber === "521-2" ||
-        (roomNumber >= "522" && roomNumber <= "526") ||
-        (roomNumber >= "529" && roomNumber <= "536") ||
-        (roomNumber >= "539" && roomNumber <= "541") ||
-        (roomNumber >= "551" && roomNumber <= "559")
-      );
-    });
-    const index = roomNumbers.indexOf(roomNumber);
+    const images = require(`./map/map${roomNumber}.png`);
+    setImageSrc(images)
+
     setSelectedRoomNumber(roomNumber);
     setModalContent(
       `선택하신 목적지는 ${roomNumber}호 ${classes[roomNumber][0]}입니다.`
     );
     setModalIsOpen(true);
-
-    if (index !== -1) {
-      setImageSrc(imgFiles[index]);
-    } else {
-      setImageSrc(mainimg);
-    }
   };
 
   const closeModal = () => {
