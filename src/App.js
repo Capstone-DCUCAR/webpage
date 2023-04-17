@@ -53,6 +53,7 @@ function App() {
     // navButton.disabled = false;
     setImageSrc(images)
     setSelectedRoomNumber(roomNumber);
+    rosConnect();
   };
 
   const navButtonClick = () => {
@@ -71,6 +72,25 @@ function App() {
     const audio = new Audio(audioFile);
     audio.play();
     closeModal();
+  };
+
+  const rosConnect = () => {
+    const ROSLIB = require('roslib');
+    const ros = new ROSLIB.Ros({
+      url : 'ws://192.168.109.128:9090'
+    });
+
+    const topic = new ROSLIB.Topic({
+      ros : ros,
+      name : 'my_topic',
+      messageType : 'std_msgs/String'
+    });
+
+    const msg = new ROSLIB.Message({
+      data : classes[selectedRoomNumber][1]
+    });
+
+    topic.publish(msg);
   };
 
   return (
