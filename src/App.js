@@ -103,10 +103,12 @@ function App() {
         <div class="mainimgStyle">
           <div>
             {flag === 1 ? (
-                <h1 className="navStyle">다른 사용자가 이용하고 있습니다.</h1>
+              <div className="navStyle">
+                <h1>다른 사용자가 이용하고 있습니다</h1>
+              </div>
               ) : (
-                <div class="contentStyle">
-                  <h1 class="headerStyle">안내를 원하는 장소를 선택하세요</h1>
+                <div class="headerStyle">
+                  <h1>안내를 원하는 장소를 선택하세요</h1>
                 </div>
             )}
           </div>
@@ -125,11 +127,13 @@ function App() {
               ))}
             </div>
           </div>
-          <br/>
           <button id="nav" class="nav_btn" onClick={() => navButtonClick()}>안 내 시 작</button>
-          <br/>
+        </div>
+        <div className="creator">
+          <p>© DCUCAR 조혜원 김동현 박성주</p>
         </div>
       </div>
+      {/* <p className="creator">DCUCAR 조혜원 김동현 박성주</p> */}
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
         <section>

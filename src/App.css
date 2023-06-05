@@ -39,8 +39,8 @@
 
 .homecontainerStyle {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   height: 100vh;
   flex-direction: column;
 }
@@ -48,38 +48,61 @@
 .navStyle {
   color: red;
   /* min-height: 30%; */
-  width: auto;
+  width: 850px;
+  height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   /* font-size: calc(10px + 2vmin); */
-  font-size: 59px;;
+  font-size: 29px;
   font-weight: bold;
+  margin: 30px;
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.navStyle h1 {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .mainimgStyle {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .contentStyle {
   display: flex;
   width: 100%;
+  justify-content: center;
   align-items: center;
 }
 
 .headerStyle{
   /* min-height: 30%; */
   width: auto;
+  height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   /* font-size: calc(10px + 2vmin); */
-  font-size: 59px;;
+  font-size: 29px;
   font-weight: bold;
+  margin: 30px;
 }
 
 .buttonsStyle {
@@ -96,10 +119,11 @@
 }
 
 .nav_btn{
-  width: 35%;
+  width: 300px;
   height: 9%;
   /* background-color:cornflowerblue; */
-  background-color:rgb(110, 120, 212);
+  /* background-color:rgb(27, 78, 130); */
+  background-color:rgb(42, 91, 131);
   border: none;
   border-radius: 7px;
   color: white;
@@ -109,8 +133,10 @@
   font-weight: bold;
   display: inline-block;
   font-size: 30px;
-  margin: 4px 0px;
+  margin: 30px 0px 0px 0px;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav_btn:hover{
@@ -143,4 +169,14 @@
 .img {
   width: auto;
   height: 550px;
+}
+
+.creator {
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  align-items: flex-end;
+  text-align: right;
+  color: #646964;
+  margin: 0px 10px;
 }
