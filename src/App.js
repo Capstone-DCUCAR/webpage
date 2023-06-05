@@ -11,6 +11,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [selectedRoomNumber, setSelectedRoomNumber] = useState("");
+  const [flag, setFlag] = useState(0);
 
   const classes = {
     501: ['강의실', -20.5, 60], 502: ['강의실', -32.315, 60], 503: ['강의실', -41.247, 60], 504: ['프로그래밍실습실1', -51.5, 54.6], 505: ['강의실', -51.5, 37.2], 506: ['학생회실', -51.5, 35], 507: ['소프트웨어 스타트업 동아리실', -51.5, 28.9], 508: ['오픈소스 소프트웨어 동아리실', -51.5, 24.5], 
@@ -61,6 +62,7 @@ function App() {
       `${selectedRoomNumber}호 ${classes[selectedRoomNumber][0]}`
     );
     setModalIsOpen(true);
+    setFlag(0);
   };
 
   const closeModal = () => {
@@ -72,6 +74,7 @@ function App() {
     const audio = new Audio(audioFile);
     audio.play();
     closeModal();
+    setFlag(1);
   };
 
   const rosConnect = () => {
@@ -87,7 +90,8 @@ function App() {
     });
 
     const msg = new ROSLIB.Message({
-      data : classes[selectedRoomNumber][1]
+      // data : classes[selectedRoomNumber][1]
+      data : JSON.stringify(classes[selectedRoomNumber])
     });
 
     topic.publish(msg);
@@ -97,9 +101,14 @@ function App() {
     <div className="App">
       <div class="homecontainerStyle">
         <div class="mainimgStyle">
-          <div class="contentStyle">
-            <h1 class="headerStyle">안내를 원하는 장소를 선택하세요</h1>
-            <button id="nav" class="nav_btn" onClick={() => navButtonClick()}>안 내 시 작</button>
+          <div>
+            {flag === 1 ? (
+                <h1 className="navStyle">다른 사용자가 이용하고 있습니다.</h1>
+              ) : (
+                <div class="contentStyle">
+                  <h1 class="headerStyle">안내를 원하는 장소를 선택하세요</h1>
+                </div>
+            )}
           </div>
           <div class="contentStyle">
             <img src={imageSrc} alt="snslab" className="img"/>
@@ -116,6 +125,9 @@ function App() {
               ))}
             </div>
           </div>
+          <br/>
+          <button id="nav" class="nav_btn" onClick={() => navButtonClick()}>안 내 시 작</button>
+          <br/>
         </div>
       </div>
 
