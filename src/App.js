@@ -123,7 +123,7 @@ function App() {
                 >
                   <br/><br/>
                   {button.label}
-                  <p class='a'>{classes[button.roomNumber][0]}</p>
+                  <p class='c_name'>{classes[button.roomNumber][0]}</p>
                 </button>
               ))}
             </div>
