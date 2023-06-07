@@ -121,8 +121,9 @@ function App() {
                   class="btn"
                   onClick={() => handleButtonClick(button.roomNumber)}
                 >
+                  <br/><br/>
                   {button.label}
-        
+                  <p class='a'>{classes[button.roomNumber][0]}</p>
                 </button>
               ))}
             </div>
